@@ -6,7 +6,7 @@
       <a href="#" class="breadcrumb-item">Forum Category</a>
       <a href="#" class="breadcrumb-item">Forum Name</a>
       <span class="breadcrumb-item active"
-        >Forum Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span
+        >{{ $topic->title }}</span
       >
     </nav>
 
@@ -17,7 +17,7 @@
           <div class="col-lg-12">
             <!-- second section  -->
             <h4 class="text-white bg-info mb-0 p-4 rounded-top">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              {{ $topic->title }}
             </h4>
             <table
               class="table table-striped table-responsivelg table-bordered"
@@ -31,34 +31,30 @@
               <tbody>
                 <tr>
                   <td class="author-col">
-                    <div>by<a href="#"> author name</a></div>
+                    <div>by<a href="#"> {{ $topic->user->name }}</a></div>
                   </td>
                   <td class="post-col d-lg-flex justify-content-lg-between">
                     <div>
-                      <span class="font-weight-bold">Post subject:</span>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing
+                      <span class="font-weight-bold">Topic subject:</span>
+                      {{ $topic->title }}
                     </div>
                     <div>
-                      <span class="font-weight-bold">Posted:</span> 08.10.2021
+                      <span class="font-weight-bold">Posted:</span> {{ $topic->created_at->diffForHumans() }}
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <div>
-                      <span class="font-weight-bold">Joined:</span>08.10.2021
+                      <span class="font-weight-bold">Joined:</span>{{ $topic->user->created_at->diffForHumans() }}
                     </div>
                     <div>
-                      <span class="font-weight-bold">Posts:</span> 200
+                      <span class="font-weight-bold">Topics:</span> {{ count($topic->user->topic) }}
                     </div>
                   </td>
                   <td>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Soluta possimus, iusto, dolorem quo commodi, quisquam
-                      porro id est fugiat culpa voluptas saepe libero!
-                      Veritatis, laudantium. Ut distinctio error maxime
-                      cupiditate?
+                      {{ $topic->desc }}
                     </p>
                     <img
                       src="https://placehold.it/600x400"
@@ -167,6 +163,7 @@
       </div>
     </form>
     <div>
+      @if (! auth()->user())
       <div class="d-lg-flex align-items-center mb-3">
         <form
           action=""
@@ -197,9 +194,10 @@
         <span class="mr-2">or...</span>
         <button class="btn btn-success">Create Account</button>
       </div>
+      <p class="small">
+        <a href="#">Have you forgotten your account details?</a>
+      </p>
+      @endif
     </div>
-    <p class="small">
-      <a href="#">Have you forgotten your account details?</a>
-    </p>
   </div>
 @endsection

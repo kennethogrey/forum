@@ -50,7 +50,7 @@ Route::post('dashboard/forums/edit/{id}',[ForumController::class,'update'])->nam
 Route::get('client/topic/new/{id}',[TopicController::class,'create'])->name('topic.new');
 Route::post('client/topic/new',[TopicController::class,'store'])->name('topic.store');
 // Route::get('client/topics',[TopicController::class,'index'])->name('topics');
-// Route::get('client/topics/{id}',[TopicController::class,'show'])->name('topic');
+Route::get('client/topic/{id}',[TopicController::class,'show'])->name('topic');
 // Route::get('client/topics/delete/{id}',[TopicController::class,'destroy'])->name('topic.destroy');
 // Route::get('client/topics/edit/{id}',[TopicController::class,'edit'])->name('topic.edit');
 // Route::post('client/topics/edit/{id}',[TopicController::class,'update'])->name('topic.update');

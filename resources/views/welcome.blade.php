@@ -18,7 +18,6 @@
                 <tr>
                   <th scope="col">Forum</th>
                   <th scope="col">Topics</th>
-                  <th scope="col">Posts</th>
                   {{-- <th scope="col">Latest Post</th> --}}
                 </tr>
               </thead>
@@ -35,7 +34,6 @@
                           </p>
                         </td>
                         <td><div>{{ count($forum->topic) }}</div></td>
-                        <td><div>{{ count($forum->post) }}</div></td>
                         {{-- <td>
                           <h4 class="h6 font-weight-bold mb-0">
                             <a href="#">Post name</a>

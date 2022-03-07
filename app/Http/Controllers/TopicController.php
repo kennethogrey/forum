@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Forum;
 use Illuminate\Http\Request;
+use App\Models\Topic;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class TopicController extends Controller
 {
@@ -37,7 +39,19 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $notify = 0;
+        if($request->notify && $request->notify == "on"){
+            $notify = 1;
+        }
+
+        $topic = new Topic();
+        $topic->title = $request->title;
+        $topic->desc = $request->desc;
+        $topic->forum_id = $request->forum_id;
+        $topic->user_id = auth()->id();
+        $topic->notify = $notify;
+        $topic->save();
+        return back();
     }
 
     /**
@@ -48,7 +62,11 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+        $topic = Topic::find($id);
+        if($topic){
+            $topic->increment('views',1);
+        }
+        return view('client.topic',compact('topic'));
     }
 
     /**
