@@ -2,9 +2,9 @@
 @section('content')
 <div class="container">
     <nav class="breadcrumb">
-      <a href="#" class="breadcrumb-item"> Forum Name</a>
-      <a href="#" class="breadcrumb-item">Forum Category</a>
-      <a href="#" class="breadcrumb-item">Forum Name</a>
+      <a href="/" class="breadcrumb-item"> Forum Categories</a>
+      <a href="{{ route('category.overview',$topic->forum->category->id) }}" class="breadcrumb-item">{{ $topic->forum->category->title }}</a>
+      <a href="{{ route('forum.overview',$topic->forum->id) }}" class="breadcrumb-item">{{ $topic->forum->title }}</a>
       <span class="breadcrumb-item active"
         >{{ $topic->title }}</span
       >
@@ -56,7 +56,7 @@
                     <p>
                       {{ $topic->desc }}
                     </p>
-                    <img
+                    {{-- <img
                       src="https://placehold.it/600x400"
                       alt=""
                       class="img-fluid"
@@ -68,59 +68,50 @@
                       corrupti ratione accusamus molestias iusto quae, alias
                       reiciendis dignissimos, voluptatum magnam perferendis
                       aperiam.
-                    </p>
+                    </p> --}}
                   </td>
                 </tr>
               </tbody>
             </table>
 
-            <table
-              class="table table-striped table-responsivelg table-bordered"
-            >
-              <tbody>
-                <tr>
-                  <td class="author-col">
-                    <div>by<a href="#"> author name</a></div>
-                  </td>
-                  <td class="post-col d-lg-flex justify-content-lg-between">
-                    <div>
-                      <span class="font-weight-bold">Post subject:</span>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing
-                    </div>
-                    <div>
-                      <span class="font-weight-bold">Posted:</span> 08.10.2021
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div>
-                      <span class="font-weight-bold">Joined:</span>08.10.2021
-                    </div>
-                    <div>
-                      <span class="font-weight-bold">Posts:</span> 200
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Soluta possimus, iusto, dolorem quo commodi, quisquam
-                      porro id est fugiat culpa voluptas saepe libero!
-                      Veritatis, laudantium. Ut distinctio error maxime
-                      cupiditate?
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Nisi illum laborum est nemo, deserunt quasi esse debitis
-                      porro unde natus, magnam ducimus vel enim quia nam? Odio
-                      corrupti ratione accusamus molestias iusto quae, alias
-                      reiciendis dignissimos, voluptatum magnam perferendis
-                      aperiam.
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          @if (count($topic->reply)>0)
+          @foreach ($topic->reply as $reply )
+          <table
+          class="table table-striped table-responsivelg table-bordered"
+        >
+          <tbody>
+            <tr class="table-info">
+              <td class="author-col">
+                <div>by<a href="#"> {{ $reply->user->name }}</a></div>
+              </td>
+              <td class="post-col d-lg-flex justify-content-lg-between">
+                <div>
+                  <span class="font-weight-bold">Reply subject:</span>
+                  {{ $topic->title }}
+                </div>
+                <div>
+                  <span class="font-weight-bold">Replied</span> {{ $reply->created_at->diffForHumans() }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div>
+                  <span class="font-weight-bold">Joined:</span> {{ $reply->user->created_at->diffForHumans() }}
+                </div>
+              </td>
+              <td>
+                <p>
+                  {{ $reply->desc }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          @endforeach
+        @else
+        <h3>No replies to this discussion yet.</h3>
+          @endif
           </div>
         </div>
       </div>
@@ -144,13 +135,13 @@
         </ul>
       </nav>
     </div>
-    <form action="" class="mb-3">
+    <form action="{{ route('topic.reply',$topic->id) }}" class="mb-3" method="POST">
+        @csrf
       <div class="form-group">
         <label for="comment">Reply to this post</label>
         <textarea
           class="form-control"
-          name="comment"
-          id=""
+          name="desc"
           rows="10"
           required
         ></textarea>

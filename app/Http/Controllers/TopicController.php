@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
-use Illuminate\Http\Request;
 use App\Models\Topic;
+use App\Models\TopicReply;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class TopicController extends Controller
@@ -69,6 +70,22 @@ class TopicController extends Controller
         return view('client.topic',compact('topic'));
     }
 
+    /**
+     * Save reply to the database.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reply(Request $request, $id)
+    {
+        $reply = new TopicReply();
+        $reply->desc = $request->desc;
+        $reply->user_id = auth()->id();
+        $reply->topic_id = $id;
+        $reply->save();
+        toastr()->success('Reply sent successsfully');
+        return back();
+    }
     /**
      * Show the form for editing the specified resource.
      *
