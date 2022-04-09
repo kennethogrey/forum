@@ -51,6 +51,8 @@ Route::get('client/topic/new/{id}',[TopicController::class,'create'])->name('top
 Route::post('client/topic/new',[TopicController::class,'store'])->name('topic.store');
 Route::post('client/topic/reply/{id}',[TopicController::class,'reply'])->name('topic.reply');
 Route::get('client/topic/{id}',[TopicController::class,'show'])->name('topic');
+Route::get('/topic/reply/delete/{id}',[TopicController::class,'destroy'])->name('reply.delete');
 // Route::get('client/topics/delete/{id}',[TopicController::class,'destroy'])->name('topic.destroy');
 // Route::get('client/topics/edit/{id}',[TopicController::class,'edit'])->name('topic.edit');
 // Route::post('client/topics/edit/{id}',[TopicController::class,'update'])->name('topic.update');
+Route::get('/updates',[TopicController::class,'updates']);

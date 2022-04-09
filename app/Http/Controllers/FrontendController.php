@@ -11,13 +11,15 @@ use App\Models\User;
 class FrontendController extends Controller
 {
     public function index(){
+        $user = new User;
+        $users_online = $user->allOnline();
         $forumsCount = count(Forum::all());
         $topicsCount = count(Topic::all());
         $totalMembers = count(User::all());
         $newest = User::latest()->first();
         $totalCategories = count(Category::all());
         $categories  = Category::latest()->get();
-        return view('welcome',compact('categories','forumsCount','topicsCount','newest','totalMembers','totalCategories'));
+        return view('welcome',compact('categories','forumsCount','topicsCount','newest','totalMembers','totalCategories','users_online'));
     }
 
     public function categoryOverview($id){

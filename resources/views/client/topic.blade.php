@@ -92,6 +92,11 @@
                 <div>
                   <span class="font-weight-bold">Replied</span> {{ $reply->created_at->diffForHumans() }}
                 </div>
+                @if (auth()->id() == $reply->user_id)
+                    <div>
+                        <a href="{{ route('reply.delete',$reply->id) }}"><i class="fa fa-trash text-danger"></i></a>
+                    </div>
+                @endif
               </td>
             </tr>
             <tr>

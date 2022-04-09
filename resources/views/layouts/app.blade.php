@@ -11,15 +11,17 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    @toastr_css
+
 
     <!-- Fonts -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @toastr_css
 </head>
 <body>
     <div class="container-fluid">
@@ -27,7 +29,7 @@
         <nav class="navbar navbar-dark bg-dark">
           <div class="container">
             <h1>
-              <a href="#" class="navbar-brand">Forum</a>
+              <a href="/" class="navbar-brand">Forum</a>
             </h1>
             <form action="#" class="form-inline mr-3 mb-2 mb-sm-0">
               <input type="text" class="form-control" placeholder="search" />

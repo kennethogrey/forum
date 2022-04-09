@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
+use Telegram;
 use App\Models\Topic;
 use App\Models\TopicReply;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Telegram\Bot\Laravel\Facades\Telegram as FacadesTelegram;
 
 class TopicController extends Controller
 {
@@ -83,6 +85,12 @@ class TopicController extends Controller
         $reply->user_id = auth()->id();
         $reply->topic_id = $id;
         $reply->save();
+        Telegram::sendMessage([
+            'chat_id'=>env('TELEGRAM_CHAT_ID', '-694394981'),
+            'parse_mode'=>'HTML',
+            'text'=> $request->desc
+
+        ]);
         toastr()->success('Reply sent successsfully');
         return back();
     }
@@ -117,6 +125,14 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reply = TopicReply::find($id);
+        $reply->delete();
+        toastr()->success("Reply deleted successfully");
+        return back();
+    }
+
+    public function updates(){
+        $updates = Telegram::getUpdates();
+        dd($updates);
     }
 }
