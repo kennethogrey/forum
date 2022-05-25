@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,3 +57,5 @@ Route::get('/topic/reply/delete/{id}',[TopicController::class,'destroy'])->name(
 // Route::get('client/topics/edit/{id}',[TopicController::class,'edit'])->name('topic.edit');
 // Route::post('client/topics/edit/{id}',[TopicController::class,'update'])->name('topic.update');
 Route::get('/updates',[TopicController::class,'updates']);
+//updating the user profile
+Route::post('user/update/{id}',[UserController::class,'update'])->name('user.update');

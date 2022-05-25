@@ -84,12 +84,14 @@ class TopicController extends Controller
         $reply->desc = $request->desc;
         $reply->user_id = auth()->id();
         $reply->topic_id = $id;
+        $topic = Topic::find($id);
+        $forumId = $topic->forum->id;
+        $url = url('/client/topic/'.$reply->topic_id);
         $reply->save();
         Telegram::sendMessage([
             'chat_id'=>env('TELEGRAM_CHAT_ID', '-694394981'),
             'parse_mode'=>'HTML',
-            'text'=> $request->desc
-
+            'text'=>"<b>".auth()->user()->name."</b>"." replied to the topic: <b>".$topic->title."</b>\n"."<b>Reply: </b>".$request->desc."\n"."<a href='".$url."'>Read it here</a>"
         ]);
         toastr()->success('Reply sent successsfully');
         return back();
